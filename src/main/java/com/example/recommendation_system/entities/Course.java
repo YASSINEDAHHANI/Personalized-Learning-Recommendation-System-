@@ -16,28 +16,11 @@ public class Course {
     private Long id;
 
     private String title;
-    private String level;
-    @ElementCollection
-    private List<String> skills;
-    private double numericRatings;
-    private long reviewCounts;
-    private double similarity;
-    private double finalScore;
     private String category;
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public List<String> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(List<String> skills) {
-        this.skills = skills;
-    }
+    private String level; // Beginner, Intermediate, Advanced
+    private double numericRatings;
+    private int reviewCounts;
+    private double similarity;
 
     public Long getId() {
         return id;
@@ -53,6 +36,14 @@ public class Course {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getLevel() {
@@ -71,11 +62,11 @@ public class Course {
         this.numericRatings = numericRatings;
     }
 
-    public long getReviewCounts() {
+    public int getReviewCounts() {
         return reviewCounts;
     }
 
-    public void setReviewCounts(long reviewCounts) {
+    public void setReviewCounts(int reviewCounts) {
         this.reviewCounts = reviewCounts;
     }
 
@@ -85,13 +76,5 @@ public class Course {
 
     public void setSimilarity(double similarity) {
         this.similarity = similarity;
-    }
-
-    public double getFinalScore() {
-        return finalScore;
-    }
-
-    public void setFinalScore(double finalScore) {
-        this.finalScore = finalScore;
     }
 }

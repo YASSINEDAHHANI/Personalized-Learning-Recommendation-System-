@@ -15,18 +15,32 @@ public class UserPreferences {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String level;
+
     @ElementCollection
+    @CollectionTable(name = "user_skills", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "skill")
     private List<String> skills;
+
     private String preferredCategory;
-    public String getPreferredCategory() {
-        return preferredCategory;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setPreferredCategory(String preferredCategory) {
-        this.preferredCategory = preferredCategory;
+    public void setId(Long id) {
+        this.id = id;
     }
-    // Getter and Setter methods
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     public List<String> getSkills() {
         return skills;
     }
@@ -35,4 +49,21 @@ public class UserPreferences {
         this.skills = skills;
     }
 
+    public String getPreferredCategory() {
+        return preferredCategory;
+    }
+
+    public void setPreferredCategory(String preferredCategory) {
+        this.preferredCategory = preferredCategory;
+    }
+
+    @Override
+    public String toString() {
+        return "UserPreferences{" +
+                "id=" + id +
+                ", level='" + level + '\'' +
+                ", skills=" + skills +
+                ", preferredCategory='" + preferredCategory + '\'' +
+                '}';
+    }
 }
