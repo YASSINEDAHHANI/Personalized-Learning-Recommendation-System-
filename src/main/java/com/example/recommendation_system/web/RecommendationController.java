@@ -2,6 +2,7 @@ package com.example.recommendation_system.web;
 
 import com.example.recommendation_system.entities.Course;
 import com.example.recommendation_system.entities.UserPreferences;
+import com.example.recommendation_system.services.CourseRecommendationService;
 import com.example.recommendation_system.services.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,34 +18,35 @@ public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
 
-    // Save user preferences
+    @Autowired
+    private CourseRecommendationService courseRecommendationService;
+
     @PostMapping("/preferences")
-    public ResponseEntity<UserPreferences> savePreferences(@RequestBody UserPreferences preferences) {
-        System.out.println(preferences);
-        UserPreferences savedPreferences = recommendationService.savePreferences(preferences);
-        return ResponseEntity.ok(savedPreferences);
+    public ResponseEntity<?> savePreferences(@RequestBody UserPreferences preferences) {
+        try {
+            UserPreferences savedPreferences = recommendationService.savePreferences(preferences);
+            return ResponseEntity.ok(savedPreferences);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error saving preferences: " + e.getMessage());
+        }
     }
 
-    // Get recommendations based on user preferences
-    @PostMapping("/recommendations")
-    public ResponseEntity<List<Course>> getRecommendations(@RequestBody UserPreferences preferences) {
-        System.out.println(preferences);
-        List<Course> recommendedCourses = recommendationService.getRecommendations(preferences);
-        return ResponseEntity.ok(recommendedCourses);
+    @PostMapping("/courses")
+    public ResponseEntity<?> getCourseRecommendations(@RequestBody UserPreferences preferences) {
+        try {
+            String recommendations = courseRecommendationService.getCourseRecommendations(preferences);
+            return ResponseEntity.ok(recommendations);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error fetching recommendations: " + e.getMessage());
+        }
     }
 
-    // Get all courses
     @GetMapping("/courses")
-    public ResponseEntity<List<Course>> getAllCourses() {
-        List<Course> courses = recommendationService.getAllCourses();
-        return ResponseEntity.ok(courses);
-    }
-
-    // Get preferences by user ID
-    @GetMapping("/preferences/{id}")
-    public ResponseEntity<UserPreferences> getPreferences(@PathVariable Long id) {
-        Optional<UserPreferences> preferences = recommendationService.getPreferences(id);
-        return preferences.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<?> getAllCourses() {
+        try {
+            return ResponseEntity.ok(recommendationService.getAllCourses());
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error fetching courses: " + e.getMessage());
+        }
     }
 }

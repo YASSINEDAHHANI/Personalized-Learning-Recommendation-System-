@@ -21,15 +21,13 @@ public class RecommendationService {
     @Autowired
     private CourseRepository courseRepository;
 
-    // Save user preferences
     public UserPreferences savePreferences(UserPreferences preferences) {
         return userPreferencesRepository.save(preferences);
     }
 
-    // Get recommendations based on user preferences
     public List<Course> getRecommendations(UserPreferences preferences) {
         if (preferences == null) {
-            return courseRepository.findAll(); // Return all courses if no preferences provided
+            return courseRepository.findAll();
         }
 
         return courseRepository.findAll().stream()
@@ -41,7 +39,6 @@ public class RecommendationService {
                 .collect(Collectors.toList());
     }
 
-    // Check if course level is compatible with user level
     private boolean isLevelCompatible(String courseLevel, String userLevel) {
         List<String> levels = List.of("Beginner", "Intermediate", "Advanced");
         int courseIndex = levels.indexOf(courseLevel);
@@ -49,12 +46,10 @@ public class RecommendationService {
         return courseIndex >= userIndex;
     }
 
-    // Get all courses (for testing or fetching all courses)
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    // Get preferences by user ID
     public Optional<UserPreferences> getPreferences(Long id) {
         return userPreferencesRepository.findById(id);
     }
