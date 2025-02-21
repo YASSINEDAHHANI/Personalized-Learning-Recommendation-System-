@@ -11,6 +11,17 @@ public class UserDto {
     private String password;
     private UserRole userRole;
 
+//    public UserDto(Long id, String username, String email, String password, UserRole userRole) {
+//        this.id = id;
+//        this.username = username;
+//        this.email = email;
+//        this.password = password;  // You may set this to null for security
+//        this.userRole = userRole;
+//    }
+//
+//    public UserDto() {
+//    }
+
     public Long getId() {
         return id;
     }
