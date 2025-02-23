@@ -1,6 +1,5 @@
 package com.example.recommendation_system.services.admin;
 
-import com.example.recommendation_system.dto.UserDto;
 import com.example.recommendation_system.entities.EnrolledCourse;
 import com.example.recommendation_system.entities.User;
 import com.example.recommendation_system.repositories.EnrolledCourseRepository;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
